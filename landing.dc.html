@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800;900&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#0F1115;font-family:'Golos Text',system-ui,sans-serif;color:#F2F0EA}
+::selection{background:rgba(245,197,66,0.35)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.22,.61,.36,1),transform .85s cubic-bezier(.22,.61,.36,1);will-change:opacity,transform}
+.reveal[data-inview]{opacity:1;transform:none}
+.reveal-nav{opacity:0;transform:translateX(-50%) translateY(38px);transition:opacity .85s cubic-bezier(.22,.61,.36,1) .35s,transform .85s cubic-bezier(.22,.61,.36,1) .35s;will-change:opacity,transform}
+.reveal-nav[data-inview]{opacity:1;transform:translateX(-50%)}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .reveal-nav{opacity:1!important;transform:translateX(-50%)!important;transition:none!important}
+}
+/* Typewriter headings */
+.tw-c{opacity:0}
+.tw-caret{display:inline-block;width:.07em;height:.92em;vertical-align:baseline;margin-left:.02em;transform:translateY(.1em);background:#F5C542;border-radius:1px;animation:tw-blink .72s steps(1) infinite}
+@keyframes tw-blink{0%,49.99%{opacity:1}50%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.tw-c{opacity:1}.tw-caret{display:none}}
+/* Stat cards — golden glow on hover */
+.stat-card{transition:border-color .45s ease,box-shadow .45s cubic-bezier(.22,.61,.36,1),transform .45s cubic-bezier(.22,.61,.36,1);will-change:transform}
+.stat-card:hover{border-color:rgba(245,197,66,0.6)!important;box-shadow:0 22px 60px rgba(245,197,66,0.22),0 0 48px rgba(245,197,66,0.16),inset 0 0 24px rgba(245,197,66,0.07);transform:translateY(-6px)}
+@media (prefers-reduced-motion:reduce){.stat-card{transition:none}.stat-card:hover{transform:none}}
+/* Sticky header */
+#siteHeader{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;box-sizing:border-box;z-index:40;border-bottom:1px solid transparent;transition:opacity .85s cubic-bezier(.22,.61,.36,1),transform .85s cubic-bezier(.22,.61,.36,1),background .45s ease,backdrop-filter .45s ease,border-color .45s ease,padding .35s ease}
+#siteHeader[data-scrolled]{background:linear-gradient(180deg,rgba(15,17,21,0.94) 0%,rgba(15,17,21,0.72) 62%,rgba(15,17,21,0) 100%);backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px);border-bottom-color:rgba(255,255,255,0.06);padding-top:14px;padding-bottom:14px}
+/* Lenis smooth scroll */
+html.lenis,html.lenis body{height:auto}
+html.lenis{scroll-behavior:auto!important}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+.lenis.lenis-smooth iframe{pointer-events:none}
+</style>
+</helmet>
+
+<div style="position:relative;overflow:clip">
+
+<!-- ══════════ ЛИПКА ШАПКА ══════════ -->
+<div id="siteHeader" class="reveal">
+  <img src="./uploads/logo.png" alt="CASHTIME PAY" style="height:40px;width:auto;display:block;font-family:'Unbounded',sans-serif;font-weight:800;font-size:16px;color:#F5C542;letter-spacing:.02em">
+  <div style="display:flex;align-items:center;gap:8px">
+    <div style="display:flex;align-items:center;justify-content:center;width:35px;height:35px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;cursor:pointer" style-hover="border-color:rgba(245,197,66,0.5)"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" stroke="#C4C9D1" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    <div style="display:flex;align-items:center;gap:6px;padding:8px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;font-size:12.5px;color:#C4C9D1;font-family:'JetBrains Mono',monospace;cursor:pointer">UA<svg width="9" height="9" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+  </div>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="home" data-screen-label="Hero" style="position:relative;height:960px;overflow:hidden;background:radial-gradient(900px 900px at 50% 46%, #191D25 0%, #0F1115 65%)">
+  <canvas ref="{{ heroCv }}" width="1440" height="960" style="position:absolute;left:50%;top:0;transform:translateX(-50%);width:1440px;height:960px;pointer-events:none"></canvas>
+  <div class="reveal" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:130px;z-index:2;transition-delay:.12s">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.3em;color:#F5C542">ЕКОНОМІКА ЧАСУ</div>
+    <h1 style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:64px;line-height:1.12;text-align:center;max-width:920px;margin:20px 0 0">Плати своїм <span style="color:#F5C542">часом</span> — а не грошима</h1>
+    <p style="font-size:20px;line-height:1.55;color:#9AA0AA;max-width:560px;text-align:center;margin:22px 0 0">Новий економічний рівень, де час замінює гроші.</p>
+    <div style="display:flex;gap:14px;margin-top:34px">
+      <a href="#how" style="display:flex;align-items:center;gap:10px;padding:16px 28px;border-radius:13px;background:linear-gradient(135deg,#FFDD7A,#E0AB22);color:#15171C;font-weight:700;font-size:16px;cursor:pointer;text-decoration:none;box-shadow:0 10px 30px rgba(245,197,66,0.25)" style-hover="transform:translateY(-2px)">Почати<svg width="17" height="17" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#15171C" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:92px;display:flex;justify-content:center;z-index:2">
+    <div ref="{{ strip }}" style="display:flex;align-items:center;gap:12px;font-size:23px;color:#A7ADB8;padding:16px 34px;border:1px solid rgba(245,197,66,0.3);border-radius:15px;background:rgba(18,21,27,0.92);box-shadow:0 14px 40px rgba(0,0,0,0.5),0 0 34px rgba(245,197,66,0.1);white-space:nowrap;flex:none;transform-origin:center bottom">
+      <span>Ми перетворюємо час</span>
+      <span ref="{{ slot1 }}" style="display:inline-block;position:relative;height:34px;overflow:hidden;perspective:300px;flex:none"></span>
+      <span>у</span>
+      <span ref="{{ slot2 }}" style="display:inline-block;position:relative;height:34px;overflow:hidden;perspective:300px;flex:none"></span>
+      <span>для</span>
+      <span ref="{{ slot3 }}" style="display:inline-block;position:relative;height:34px;overflow:hidden;perspective:300px;flex:none"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ЯК ПРАЦЮЄ ══════════ -->
+<section id="how" data-screen-label="Як працює" class="reveal" style="position:relative;padding:140px 48px 120px;max-width:1336px;margin:0 auto;box-sizing:border-box">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.3em;color:#F5C542">01 — THE THESIS</div>
+  <h2 style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:52px;line-height:1.1;margin:18px 0 0;max-width:720px">Як працює <span style="color:#F5C542">Економіка часу</span></h2>
+  <div style="display:grid;grid-template-columns:1fr 660px;gap:64px;margin-top:70px;align-items:center">
+    <div style="display:flex;flex-direction:column">
+      <div onMouseEnter="{{ hov0 }}" onMouseLeave="{{ hovOff }}" style="padding:30px 26px;border-top:1px solid rgba(255,255,255,0.09);cursor:default;border-radius:2px" style-hover="background:rgba(245,197,66,0.04)">
+        <div style="display:flex;gap:18px;align-items:baseline">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#F5C542">01</span>
+          <div>
+            <div style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:22px">Бренди фінансують залучення</div>
+            <p style="font-size:16px;line-height:1.6;color:#9AA0AA;margin:10px 0 0">Компанії інвестують у дослідження, лідогенерацію та верифіковані взаємодії.</p>
+          </div>
+        </div>
+      </div>
+      <div onMouseEnter="{{ hov1 }}" onMouseLeave="{{ hovOff }}" style="padding:30px 26px;border-top:1px solid rgba(255,255,255,0.09);cursor:default;border-radius:2px" style-hover="background:rgba(245,197,66,0.04)">
+        <div style="display:flex;gap:18px;align-items:baseline">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#F5C542">02</span>
+          <div>
+            <div style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:22px">Користувачі заробляють часові кредити</div>
+            <p style="font-size:16px;line-height:1.6;color:#9AA0AA;margin:10px 0 0">Люди вкладають свій час та отримують верифіковані, прозорі часові кредити.</p>
+          </div>
+        </div>
+      </div>
+      <div onMouseEnter="{{ hov2 }}" onMouseLeave="{{ hovOff }}" style="padding:30px 26px;border-top:1px solid rgba(255,255,255,0.09);border-bottom:1px solid rgba(255,255,255,0.09);cursor:default;border-radius:2px" style-hover="background:rgba(245,197,66,0.04)">
+        <div style="display:flex;gap:18px;align-items:baseline">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#F5C542">03</span>
+          <div>
+            <div style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:22px">Час стає підтримкою</div>
+            <p style="font-size:16px;line-height:1.6;color:#9AA0AA;margin:10px 0 0">Ви використовуєте свій час, щоб підтримати авторів, благодійність та тих, кому хочете допомогти.</p>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:15px;line-height:1.6;color:#6E7480;margin:28px 0 0;padding-left:26px">CashTime Pay з'єднує бренди, креаторів та користувачів через систему часового обміну цінностями.</p>
+    </div>
+    <canvas ref="{{ triCv }}" width="660" height="620" style="width:660px;height:620px"></canvas>
+  </div>
+</section>
+
+<!-- ══════════ ГЛОБАЛЬНИЙ МАСШТАБ ══════════ -->
+<section id="scale" data-screen-label="Глобальний масштаб" ref="{{ scaleRef }}" class="reveal" style="position:relative;background:#0B0D11;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">
+  <div style="padding:130px 48px 130px;max-width:1336px;margin:0 auto;box-sizing:border-box">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.3em;color:#F5C542">02 — РИНКИ</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap">
+      <h2 style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:52px;line-height:1.1;margin:18px 0 0">Глобальний масштаб</h2>
+      <p style="font-size:18px;line-height:1.55;color:#9AA0AA;max-width:420px;margin:0">CashTime Pay працює на найбільших і найшвидше зростаючих глобальних ринках.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:64px">
+      <div class="stat-card" style="grid-column:span 3;padding:36px 34px;border:1px solid rgba(255,255,255,0.08);border-radius:18px;background:linear-gradient(160deg,rgba(245,197,66,0.06),rgba(245,197,66,0) 55%)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.18em;color:#8A8F98">КРЕАТОРСЬКА ЕКОНОМІКА</div>
+        <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:56px;color:#F5C542;margin-top:18px">$<span ref="{{ n1 }}">0</span> млрд+</div>
+        <p style="font-size:15.5px;line-height:1.6;color:#9AA0AA;margin:14px 0 0">Прогнозовано ~$480 млрд до 2027. ~50 мільйонів креаторів у світі.</p>
+      </div>
+      <div class="stat-card" style="grid-column:span 3;padding:36px 34px;border:1px solid rgba(255,255,255,0.08);border-radius:18px;background:linear-gradient(160deg,rgba(245,197,66,0.06),rgba(245,197,66,0) 55%)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.18em;color:#8A8F98">ГЛОБАЛЬНА РЕКЛАМА</div>
+        <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:56px;color:#F5C542;margin-top:18px">$<span ref="{{ n2 }}">0</span> трлн+</div>
+        <p style="font-size:15.5px;line-height:1.6;color:#9AA0AA;margin:14px 0 0">Щорічні витрати на рекламу. Сотні мільярдів на цифрові канали.</p>
+      </div>
+      <div class="stat-card" style="grid-column:span 2;padding:32px 30px;border:1px solid rgba(255,255,255,0.08);border-radius:18px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.18em;color:#8A8F98">РИНОК ДОСЛІДЖЕНЬ</div>
+        <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:40px;color:#F2F0EA;margin-top:16px">$<span ref="{{ n3 }}">0</span> млрд+</div>
+        <p style="font-size:15px;line-height:1.6;color:#9AA0AA;margin:12px 0 0">Глобальна індустрія досліджень та аналітики.</p>
+      </div>
+      <div class="stat-card" style="grid-column:span 2;padding:32px 30px;border:1px solid rgba(255,255,255,0.08);border-radius:18px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.18em;color:#8A8F98">ІНФЛЮЕНСЕР-МАРКЕТИНГ</div>
+        <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:40px;color:#F2F0EA;margin-top:16px">$<span ref="{{ n4 }}">0</span> млрд+</div>
+        <p style="font-size:15px;line-height:1.6;color:#9AA0AA;margin:12px 0 0">Швидко зростає з року в рік.</p>
+      </div>
+      <div class="stat-card" style="grid-column:span 2;padding:32px 30px;border:1px solid rgba(255,255,255,0.08);border-radius:18px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.18em;color:#8A8F98">ПЛАТФОРМИ ПІДТРИМКИ КРЕАТОРІВ</div>
+        <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:40px;color:#F2F0EA;margin-top:16px">Мільярди</div>
+        <p style="font-size:15px;line-height:1.6;color:#9AA0AA;margin:12px 0 0">Щорічних прямих виплат креаторам у всьому світі.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ТЕЗА ══════════ -->
+<section id="thesis" data-screen-label="Теза" class="reveal" style="padding:140px 48px 130px;max-width:1080px;margin:0 auto;box-sizing:border-box">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.3em;color:#F5C542">03 — НОВИЙ ШАР</div>
+  <p style="font-size:22px;line-height:1.65;color:#C4C9D1;margin:34px 0 0;max-width:860px">CashTime Pay працює на масивних, перевірених ринках — монетизація креаторів, цифрова реклама, дослідження брендів та інфлюенсер-дистрибуція.</p>
+  <p style="font-size:22px;line-height:1.65;color:#C4C9D1;margin:26px 0 0;max-width:860px">Впроваджуючи нову модель часового обміну цінностями, ми розширюємо ці ринки, усуваючи структурні бар'єри:</p>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:30px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;padding:12px 18px;border:1px solid rgba(255,255,255,0.12);border-radius:11px;color:#9AA0AA;display:inline-flex;align-items:center;gap:10px" style-hover="color:#F2F0EA;border-color:rgba(245,197,66,0.45)"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="#F5C542" stroke-width="2.6" stroke-linecap="round"></path></svg>Низька участь у пожертвах</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;padding:12px 18px;border:1px solid rgba(255,255,255,0.12);border-radius:11px;color:#9AA0AA;display:inline-flex;align-items:center;gap:10px" style-hover="color:#F2F0EA;border-color:rgba(245,197,66,0.45)"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="#F5C542" stroke-width="2.6" stroke-linecap="round"></path></svg>Втома від досліджень</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;padding:12px 18px;border:1px solid rgba(255,255,255,0.12);border-radius:11px;color:#9AA0AA;display:inline-flex;align-items:center;gap:10px" style-hover="color:#F2F0EA;border-color:rgba(245,197,66,0.45)"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="#F5C542" stroke-width="2.6" stroke-linecap="round"></path></svg>Пасивне рекламне залучення</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;padding:12px 18px;border:1px solid rgba(255,255,255,0.12);border-radius:11px;color:#9AA0AA;display:inline-flex;align-items:center;gap:10px" style-hover="color:#F2F0EA;border-color:rgba(245,197,66,0.45)"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="#F5C542" stroke-width="2.6" stroke-linecap="round"></path></svg>Неефективність трафік-орієнтованих лідів</span>
+  </div>
+  <p style="font-size:22px;line-height:1.65;color:#C4C9D1;margin:34px 0 0;max-width:860px">Час стає вимірюваним, фінансованим і передаваним — відкриваючи нову економічну поведінку в усталених індустріях.</p>
+  <h3 style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:44px;line-height:1.25;margin:72px 0 0">Це не новий нішевий ринок.<br><span style="color:#F5C542">Це новий економічний шар</span> на існуючому глобальному масштабі.</h3>
+</section>
+
+<!-- ══════════ ЕКОСИСТЕМА ══════════ -->
+<section id="eco" data-screen-label="Екосистема" class="reveal" style="background:#0B0D11;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">
+  <div style="padding:130px 48px;max-width:1336px;margin:0 auto;box-sizing:border-box">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.3em;color:#F5C542">04 — РОЛІ</div>
+    <h2 style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:52px;line-height:1.1;margin:18px 0 0">Дослідити екосистему</h2>
+    <div style="display:grid;grid-template-columns:452px 1fr;gap:24px;margin-top:60px;align-items:stretch">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <canvas ref="{{ ecoCv }}" width="52" height="440" style="width:52px;height:440px;flex:none"></canvas>
+        <div ref="{{ roleList }}" style="display:flex;flex-direction:column;gap:10px;flex:1">
+          <sc-for list="{{ roles }}" as="role" hint-placeholder-count="5">
+            <div onClick="{{ role.onPick }}" style="{{ role.btnStyle }}" style-hover="border-color:rgba(245,197,66,0.5)">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8A8F98">{{ role.num }}</span>
+              <span style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:17px">{{ role.name }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:relative;border:1px solid rgba(245,197,66,0.28);border-radius:20px;padding:52px 56px;background:linear-gradient(150deg,rgba(245,197,66,0.07),rgba(245,197,66,0) 60%);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:540px">
+        <div style="position:absolute;bottom:6px;right:6px;font-family:'Unbounded',sans-serif;font-weight:900;font-size:168px;line-height:1;color:rgba(245,197,66,0.06);pointer-events:none;z-index:0">{{ roleNum }}</div>
+        <!-- Місце під візуальну картку ролі (замінюється зображенням) -->
+        <div style="position:relative;z-index:1;flex:1;min-height:210px;margin-bottom:36px;border:1.5px dashed rgba(245,197,66,0.4);border-radius:16px;background:linear-gradient(150deg,rgba(245,197,66,0.06),rgba(245,197,66,0));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2.5" stroke="#F5C542" stroke-width="1.6" opacity="0.75"></rect><circle cx="8.5" cy="9.5" r="1.7" fill="#F5C542" opacity="0.75"></circle><path d="M4 18l5-5 4 4 3-3 4 4" stroke="#F5C542" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"></path></svg>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:rgba(245,197,66,0.85)">ВІЗУАЛ · {{ roleName }}</div>
+          <div style="font-size:12.5px;color:#6E7480">Місце під картку — зображення додамо пізніше</div>
+        </div>
+        <div style="position:relative;z-index:1;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.22em;color:#F5C542">{{ roleTag }}</div>
+        <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:44px;margin-top:14px">{{ roleName }}</div>
+        <p style="font-size:20px;line-height:1.6;color:#C4C9D1;margin:18px 0 0;max-width:560px">{{ roleDesc }}</p>
+        <div style="display:flex;align-items:center;gap:9px;margin-top:30px;font-size:15.5px;font-weight:600;color:#F5C542;cursor:pointer">Дізнатися більше<svg width="16" height="16" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#F5C542" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section id="about" data-screen-label="Про нас" class="reveal" style="position:relative;padding:170px 48px;text-align:center;overflow:hidden">
+  <svg width="640" height="640" viewBox="0 0 640 640" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0.5;pointer-events:none">
+    <circle cx="320" cy="320" r="300" fill="none" stroke="rgba(245,197,66,0.1)" stroke-width="1" stroke-dasharray="2 10"></circle>
+    <circle cx="320" cy="320" r="240" fill="none" stroke="rgba(245,197,66,0.06)" stroke-width="1"></circle>
+    <path d="M320 300v40M300 320h40" stroke="rgba(245,197,66,0.35)" stroke-width="7"></path>
+  </svg>
+  <div style="position:relative">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.3em;color:#F5C542">ПРО НАС</div>
+    <h2 style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:56px;line-height:1.15;margin:24px 0 0">Швейцарська точність.<br><span style="color:#F5C542">Цифрова економіка.</span></h2>
+    <p style="font-size:20px;line-height:1.6;color:#9AA0AA;max-width:620px;margin:26px auto 0">Засновано у Швейцарії — де точність і час завжди визначали цінність. CashTime Pay розширює цю логіку у цифрову економіку.</p>
+    <div style="display:flex;justify-content:center;margin-top:40px">
+      <a href="#eco" style="display:flex;align-items:center;gap:10px;padding:16px 28px;border-radius:13px;background:linear-gradient(135deg,#FFDD7A,#E0AB22);color:#15171C;font-weight:700;font-size:16px;cursor:pointer;text-decoration:none;box-shadow:0 10px 30px rgba(245,197,66,0.25)" style-hover="transform:translateY(-2px)">Дослідити платформу<svg width="17" height="17" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#15171C" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer data-screen-label="Футер" class="reveal" style="background:#0A0C0F;border-top:1px solid rgba(255,255,255,0.07);padding:80px 48px 140px">
+  <div style="max-width:1336px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1.2fr 1fr 1.2fr 0.9fr;gap:40px">
+    <div>
+      <img src="./uploads/logo.png" alt="CASHTIME PAY" style="height:34px;width:auto;display:block;font-family:'Unbounded',sans-serif;font-weight:800;font-size:16px;color:#F2F0EA">
+      <p style="font-size:14px;line-height:1.65;color:#6E7480;margin:18px 0 0;max-width:280px">CashTime Pay — це швейцарська інфраструктура цінності на основі часу, що з'єднує бренди, креаторів та Cashtimer-користувачів через інвестований людський час.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.2em;color:#8A8F98;margin-bottom:6px">КОМПАНІЯ</div>
+      <a href="#home" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Головна</a>
+      <a href="#about" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Про нас</a>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Контакти</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.2em;color:#8A8F98;margin-bottom:6px">СЦЕНАРІЇ ВИКОРИСТАННЯ</div>
+      <a href="#eco" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Cashtimer</a>
+      <a href="#eco" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Мерчанти</a>
+      <a href="#eco" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Благодійність</a>
+      <a href="#eco" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Інфлюенсери</a>
+      <a href="#eco" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Для афілійованих програм</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.2em;color:#8A8F98;margin-bottom:6px">ДЛЯ КРЕАТОРІВ</div>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Огляд</a>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Substack</a>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">beehiiv</a>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">YouTube</a>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Open Source</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.2em;color:#8A8F98;margin-bottom:6px">ПРАВОВА ІНФОРМАЦІЯ</div>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Політика конфіденційності</a>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Політика використання файлів cookie</a>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Умови надання послуг</a>
+      <a href="#" style="font-size:14.5px;color:#C4C9D1;text-decoration:none" style-hover="color:#F5C542">Impressum</a>
+    </div>
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.2em;color:#8A8F98;margin-bottom:16px">МОВА</div>
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;font-size:13.5px;color:#C4C9D1;cursor:pointer" style-hover="border-color:rgba(245,197,66,0.5)">Українська<svg width="10" height="10" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+  </div>
+  <div style="max-width:1336px;margin:60px auto 0;padding-top:28px;border-top:1px solid rgba(255,255,255,0.06);font-size:13px;color:#565C66">© 2025 CashTime Pay AG (у стадії формування). Усі права захищені.</div>
+</footer>
+
+<!-- ══════════ НИЖНІЙ NAVBAR ══════════ -->
+<nav class="reveal-nav" style="position:fixed;left:50%;bottom:20px;display:flex;align-items:center;gap:7px;background:rgba(26,30,38,0.97);border:1px solid rgba(245,197,66,0.35);border-radius:18px;padding:10px;box-shadow:0 24px 60px rgba(0,0,0,0.7),0 0 44px rgba(245,197,66,0.16);backdrop-filter:blur(14px);z-index:50">
+  <a href="#home" onClick="{{ nc0 }}" style="{{ ns0 }}" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Головна</a>
+  <a href="#about" onClick="{{ nc1 }}" style="{{ ns1 }}" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Про нас</a>
+  <a href="#eco" onClick="{{ nc2 }}" style="{{ ns2 }}" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Cashtimer</a>
+  <a href="#eco" onClick="{{ nc3 }}" style="{{ ns3 }}" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Бренди<svg width="9" height="9" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+  <a href="#eco" onClick="{{ nc4 }}" style="{{ ns4 }}" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Мерчанти</a>
+  <a href="#eco" onClick="{{ nc5 }}" style="{{ ns5 }}" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Благодійність</a>
+  <a href="#eco" onClick="{{ nc6 }}" style="{{ ns6 }}" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Інфлюенсери</a>
+  <div style="padding:12px 22px;border-radius:11px;background:linear-gradient(135deg,#FFDD7A,#E0AB22);color:#15171C;font-weight:700;font-size:13.5px;cursor:pointer;box-shadow:0 6px 18px rgba(245,197,66,0.3)" style-hover="transform:translateY(-1px)">Увійти</div>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { role: 0, nav: 0 };
+    this.heroCv = React.createRef();
+    this.triCv = React.createRef();
+    this.slot1 = React.createRef();
+    this.slot2 = React.createRef();
+    this.slot3 = React.createRef();
+    this.n1 = React.createRef();
+    this.n2 = React.createRef();
+    this.n3 = React.createRef();
+    this.n4 = React.createRef();
+    this.scaleRef = React.createRef();
+    this.ecoCv = React.createRef();
+    this.roleList = React.createRef();
+    this.strip = React.createRef();
+    this.rafs = [];
+    this.hiEdge = -1;
+    this.roleData = [
+      { name: 'Cashtimer', tag: 'ГЛЯДАЧ · ФАН · БЕКЕР', desc: 'Ви використовуєте свій час, щоб підтримати авторів, благодійність та тих, кому хочете допомогти.' },
+      { name: 'Інфлюенсери', tag: 'КРЕАТОР · АВТОР', desc: 'Перетворіть час вашої аудиторії на реальний регулярний дохід.' },
+      { name: 'Мерчанти', tag: 'БІЗНЕС · ПРОДАВЕЦЬ', desc: 'Приймайте час як спосіб оплати та розширюйте клієнтську базу.' },
+      { name: 'Благодійність', tag: 'ФОНД · НКО', desc: 'Дозвольте будь-кому робити пожертви часом — без фінансових бар\u02bcєрів.' },
+      { name: 'Дослідження брендів', tag: 'БРЕНД · РЕКЛАМОДАВЕЦЬ', desc: 'Доступ до верифікованого, часового залучення та кваліфікованих лідів.' }
+    ];
+  }
+
+  componentDidMount() {
+    this.initReveal();
+    this.initTypewriter();
+    this.initHeader();
+    this.initSmoothScroll();
+    const start = () => { try { this.initHero(); this.initTri(); this.initSlots(); this.initCounts(); this.initEcoCoin(); } catch (e) { console.error(e); } };
+    if (document.fonts && document.fonts.load) {
+      document.fonts.load("900 60px 'Unbounded'").then(() => document.fonts.ready).then(start).catch(() => setTimeout(start, 900));
+    } else { setTimeout(start, 900); }
+  }
+
+  componentWillUnmount() {
+    this.rafs.forEach(id => cancelAnimationFrame(id));
+    if (this._twTimers) this._twTimers.forEach(id => clearTimeout(id));
+    if (this._revealTimers) this._revealTimers.forEach(id => clearTimeout(id));
+    if (this._twIo) this._twIo.disconnect();
+    if (this._io) this._io.disconnect();
+    if (this._headerScroll) window.removeEventListener('scroll', this._headerScroll);
+    if (this._lenisRaf) cancelAnimationFrame(this._lenisRaf);
+    if (this._lenis) { try { this._lenis.destroy(); } catch (e) {} }
+  }
+
+  initHeader() {
+    const hd = document.getElementById('siteHeader');
+    if (!hd) return;
+    const onScroll = () => {
+      const y = (this._lenis && typeof this._lenis.scroll === 'number') ? this._lenis.scroll : window.scrollY;
+      if (y > 40) hd.setAttribute('data-scrolled', '');
+      else hd.removeAttribute('data-scrolled');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    this._headerScroll = onScroll;
+  }
+
+  initSmoothScroll() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const boot = () => {
+      if (!window.Lenis) return;
+      const lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true, wheelMultiplier: 1 });
+      this._lenis = lenis;
+      lenis.on('scroll', () => { if (this._headerScroll) this._headerScroll(); });
+      const raf = (time) => { lenis.raf(time); this._lenisRaf = requestAnimationFrame(raf); };
+      this._lenisRaf = requestAnimationFrame(raf);
+      // smooth in-page anchor links (nav + CTAs), accounting for the fixed header
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href');
+          if (!id || id.length < 2) return;
+          const el = document.querySelector(id);
+          if (!el) return;
+          e.preventDefault();
+          lenis.scrollTo(el, { offset: -80 });
+        });
+      });
+    };
+    if (window.Lenis) { boot(); return; }
+    const s = document.createElement('script');
+    s.src = './vendor/lenis.min.js';
+    s.async = false;
+    s.onload = boot;
+    s.onerror = () => console.warn('[cashtime] Lenis не завантажився — використовується нативний скрол');
+    document.head.appendChild(s);
+  }
+
+  initReveal() {
+    // Fixed elements (bottom navbar) live outside the scroll flow — reveal them
+    // on the next frame instead of via the observer, whose bottom rootMargin
+    // would otherwise keep them hidden.
+    const fixed = Array.prototype.slice.call(document.querySelectorAll('.reveal-nav'));
+    requestAnimationFrame(() => fixed.forEach(el => el.setAttribute('data-inview', '')));
+
+    const els = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.setAttribute('data-inview', ''));
+      return;
+    }
+    // First observer callback fires for whatever is already on screen at load
+    // (hero, header) — those reveal immediately. Anything that scrolls into
+    // view afterwards waits REVEAL_DELAY so the animation plays nearer the
+    // middle of the screen rather than snapping in at the bottom edge.
+    const REVEAL_DELAY = 360; // ms
+    this._revealTimers = [];
+    let firstBatch = true;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          const target = en.target;
+          const delay = firstBatch ? 0 : REVEAL_DELAY;
+          this._revealTimers.push(setTimeout(() => target.setAttribute('data-inview', ''), delay));
+          io.unobserve(target);
+        }
+      });
+      firstBatch = false;
+    }, { threshold: 0, rootMargin: '0px 0px -18% 0px' });
+    els.forEach(el => io.observe(el));
+    this._io = io;
+  }
+
+  // Split an element's text into per-character spans, preserving nested
+  // markup (coloured <span>) and <br>. Collected spans go into `chars`.
+  _twSplit(node, chars) {
+    const kids = Array.prototype.slice.call(node.childNodes);
+    kids.forEach(child => {
+      if (child.nodeType === 3) {
+        const text = child.nodeValue;
+        if (!text) return;
+        const frag = document.createDocumentFragment();
+        for (const ch of text) {
+          const s = document.createElement('span');
+          s.className = 'tw-c';
+          s.textContent = ch;
+          frag.appendChild(s);
+          chars.push(s);
+        }
+        node.replaceChild(frag, child);
+      } else if (child.nodeType === 1 && child.tagName !== 'BR') {
+        this._twSplit(child, chars);
+      }
+    });
+  }
+
+  initTypewriter() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const heads = Array.prototype.slice.call(document.querySelectorAll('h1, h2, h3'));
+    if (!heads.length) return;
+    const SPEED = 22; // ms per character — fast
+    this._twTimers = this._twTimers || [];
+
+    heads.forEach(el => {
+      const chars = [];
+      this._twSplit(el, chars);
+      el._twChars = chars;
+    });
+
+    const type = (el) => {
+      if (el._twStarted) return;
+      el._twStarted = true;
+      const chars = el._twChars || [];
+      if (!chars.length) return;
+      const caret = document.createElement('span');
+      caret.className = 'tw-caret';
+      caret.setAttribute('aria-hidden', 'true');
+      chars[0].parentNode.insertBefore(caret, chars[0]);
+      let i = 0;
+      const step = () => {
+        if (i >= chars.length) {
+          const done = setTimeout(() => { if (caret.parentNode) caret.remove(); }, 420);
+          this._twTimers.push(done);
+          return;
+        }
+        const c = chars[i];
+        c.style.opacity = '1';
+        if (c.nextSibling !== caret) c.parentNode.insertBefore(caret, c.nextSibling);
+        i++;
+        this._twTimers.push(setTimeout(step, SPEED));
+      };
+      step();
+    };
+
+    if (!('IntersectionObserver' in window)) { heads.forEach(type); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { type(en.target); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.2 });
+    heads.forEach(h => io.observe(h));
+    this._twIo = io;
+  }
+
+  drawCoin(ctx, x, y, r, roll) {
+    const glow = ctx.createRadialGradient(x, y, r * 0.3, x, y, r * 2.2);
+    glow.addColorStop(0, 'rgba(245,197,66,0.28)');
+    glow.addColorStop(1, 'rgba(245,197,66,0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath(); ctx.arc(x, y, r * 2.2, 0, 6.283); ctx.fill();
+    ctx.save();
+    ctx.translate(x, y);
+    const face = ctx.createRadialGradient(-r * 0.45, -r * 0.5, r * 0.15, 0, 0, r * 1.05);
+    face.addColorStop(0, '#FFF0B8');
+    face.addColorStop(0.45, '#F5C542');
+    face.addColorStop(1, '#B9860F');
+    ctx.fillStyle = face;
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, 6.283); ctx.fill();
+    ctx.lineWidth = Math.max(1.4, r * 0.1); ctx.strokeStyle = 'rgba(122,86,10,0.9)';
+    ctx.beginPath(); ctx.arc(0, 0, r * 0.95, 0, 6.283); ctx.stroke();
+    ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(255,240,190,0.7)';
+    ctx.beginPath(); ctx.arc(0, 0, r * 0.84, 0, 6.283); ctx.stroke();
+    ctx.rotate(roll);
+    ctx.strokeStyle = 'rgba(122,86,10,0.55)'; ctx.lineWidth = Math.max(1, r * 0.075);
+    for (let i = 0; i < 22; i++) {
+      const a = i / 22 * 6.283;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a) * r * 0.74, Math.sin(a) * r * 0.74);
+      ctx.lineTo(Math.cos(a) * r * 0.9, Math.sin(a) * r * 0.9);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = 'rgba(122,86,10,0.4)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(0, 0, r * 0.62, 0, 6.283); ctx.stroke();
+    ctx.font = "900 " + Math.round(r) + "px 'Unbounded'";
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(255,244,205,0.9)';
+    ctx.fillText('C', r * 0.05, -r * 0.04 + r * 0.07);
+    ctx.fillStyle = '#8F6A12';
+    ctx.fillText('C', 0, -r * 0.04);
+    ctx.restore();
+    const spec = ctx.createRadialGradient(x - r * 0.4, y - r * 0.45, 0, x - r * 0.4, y - r * 0.45, r * 0.7);
+    spec.addColorStop(0, 'rgba(255,255,255,0.4)');
+    spec.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = spec;
+    ctx.beginPath(); ctx.arc(x - r * 0.4, y - r * 0.45, r * 0.7, 0, 6.283); ctx.fill();
+  }
+
+  initHero() {
+    const cv = this.heroCv.current; if (!cv) return;
+    const ctx = cv.getContext('2d');
+    const w = cv.width, h = cv.height, cx = w / 2, cy = 445, R = 335;
+    const orb = [];
+    for (let i = 0; i < 7; i++) orb.push({ a: Math.random() * 6.283, sp: (0.08 + Math.random() * 0.18) * (Math.random() < 0.5 ? -1 : 1), r: R + (Math.random() * 100 - 50), cr: 3 + Math.random() * 3.5 });
+    const ez = k => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    const t0 = performance.now();
+    const tick = now => {
+      const t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = 'rgba(245,197,66,0.07)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.283); ctx.stroke();
+      ctx.strokeStyle = 'rgba(245,197,66,0.04)';
+      ctx.beginPath(); ctx.arc(cx, cy, R + 60, 0, 6.283); ctx.stroke();
+      const s = Math.floor(t) % 60, f = t % 1, e = ez(Math.min(1, f * 1.8));
+      for (let i = 0; i < 60; i++) {
+        const a = i / 60 * 6.283 - Math.PI / 2;
+        const x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
+        const dist = (s - i + 60) % 60;
+        const trail = dist < 9 ? 1 - dist / 9 : 0;
+        const major = i % 5 === 0;
+        ctx.globalAlpha = 0.1 + (major ? 0.1 : 0) + trail * 0.8;
+        ctx.fillStyle = trail > 0 ? '#F5C542' : '#8A93A3';
+        ctx.beginPath(); ctx.arc(x, y, (major ? 5 : 3.2) + trail * 2, 0, 6.283); ctx.fill();
+      }
+      const ha = (s + e) / 60 * 6.283 - Math.PI / 2;
+      const hx = cx + Math.cos(ha) * R, hy = cy + Math.sin(ha) * R;
+      ctx.globalAlpha = 1;
+      this.drawCoin(ctx, hx, hy, 16, ha * R / 16);
+      for (const o of orb) {
+        const a = o.a + t * o.sp;
+        ctx.globalAlpha = 0.15; ctx.fillStyle = '#F5C542';
+        ctx.beginPath(); ctx.arc(cx + Math.cos(a) * o.r, cy + Math.sin(a) * o.r, o.cr, 0, 6.283); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      this.rafs[0] = requestAnimationFrame(tick);
+    };
+    this.rafs[0] = requestAnimationFrame(tick);
+  }
+
+  initTri() {
+    const cv = this.triCv.current; if (!cv) return;
+    const ctx = cv.getContext('2d');
+    const nodes = [
+      { x: 330, y: 110, label: 'Бренди' },
+      { x: 120, y: 470, label: 'Cashtimer-и' },
+      { x: 540, y: 470, label: 'Креатори' }
+    ];
+    const edges = [
+      // lx/ly: label offset (px) from the edge midpoint. Side edges are pushed
+      // outward (left / right) so the phrases hang beside the diagram instead of
+      // overlapping the curve and the travelling dots.
+      { a: 0, b: 1, label: 'фінансують залучення', lx: -108, ly: -4 },
+      { a: 1, b: 2, label: 'час → підтримка', lx: 0, ly: 34 },
+      { a: 2, b: 0, label: 'увага та аудиторія', lx: 108, ly: -4 }
+    ];
+    const cx = 330, cy = 360;
+    const qp = (p0, p1, m, t) => {
+      const u = 1 - t;
+      return { x: u * u * p0.x + 2 * u * t * m.x + t * t * p1.x, y: u * u * p0.y + 2 * u * t * m.y + t * t * p1.y };
+    };
+    const mids = edges.map(ed => {
+      const a = nodes[ed.a], b = nodes[ed.b];
+      const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+      const dx = mx - cx, dy = my - cy;
+      const dl = Math.sqrt(dx * dx + dy * dy) || 1;
+      return { x: mx + dx / dl * 55, y: my + dy / dl * 55 };
+    });
+    const t0 = performance.now();
+    const tick = now => {
+      const t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      edges.forEach((ed, ei) => {
+        const a = nodes[ed.a], b = nodes[ed.b], m = mids[ei];
+        const hi = this.hiEdge === ei;
+        ctx.strokeStyle = hi ? 'rgba(245,197,66,0.55)' : 'rgba(245,197,66,0.14)';
+        ctx.lineWidth = hi ? 2 : 1.2;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.quadraticCurveTo(m.x, m.y, b.x, b.y); ctx.stroke();
+        for (let i = 0; i < 4; i++) {
+          const pt = qp(a, b, m, ((t * 0.13) + i / 4) % 1);
+          const g = ctx.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, hi ? 12 : 8);
+          g.addColorStop(0, hi ? 'rgba(245,197,66,0.9)' : 'rgba(245,197,66,0.55)');
+          g.addColorStop(1, 'rgba(245,197,66,0)');
+          ctx.fillStyle = g;
+          ctx.beginPath(); ctx.arc(pt.x, pt.y, hi ? 12 : 8, 0, 6.283); ctx.fill();
+          ctx.fillStyle = hi ? '#FFE291' : '#E8B937';
+          ctx.beginPath(); ctx.arc(pt.x, pt.y, hi ? 4 : 3, 0, 6.283); ctx.fill();
+        }
+        const lp = qp(a, b, m, 0.5);
+        ctx.font = "500 13px 'JetBrains Mono'";
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = hi ? 'rgba(245,197,66,0.95)' : 'rgba(196,201,209,0.55)';
+        ctx.fillText(ed.label, lp.x + (ed.lx || 0), lp.y + (ed.ly || 0));
+      });
+      nodes.forEach((nd, ni) => {
+        const pulse = 1 + 0.03 * Math.sin(t * 1.6 + ni * 2.1);
+        this.drawCoin(ctx, nd.x, nd.y, 34 * pulse, t * 0.35 + ni * 2);
+        ctx.font = "600 16px 'Golos Text'";
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#F2F0EA';
+        ctx.fillText(nd.label, nd.x, nd.y + 62);
+      });
+      this.rafs[1] = requestAnimationFrame(tick);
+    };
+    this.rafs[1] = requestAnimationFrame(tick);
+  }
+
+  initSlots() {
+    const cols = [
+      { ref: this.slot1, words: ['підписників', 'бекерів', 'фанів', 'учасників лояльності', 'спонсорів'] },
+      { ref: this.slot2, words: ['донати', 'респондентів', 'внески', 'знижки', 'лідів'] },
+      { ref: this.slot3, words: ['креаторів', 'благодійних фондів', 'інфлюенсерів', 'продавців', 'брендів'] }
+    ];
+    const mc = document.createElement('canvas').getContext('2d');
+    mc.font = "600 23px 'Golos Text'";
+    const rowH = 34;
+    const reels = [];
+    cols.forEach((col, ci) => {
+      const el = col.ref.current; if (!el) return;
+      if (el.childNodes.length) el.innerHTML = '';
+      const rows = col.words.map(wd => {
+        const d = document.createElement('div');
+        d.textContent = wd;
+        d.style.cssText = 'position:absolute;left:0;right:0;top:0;height:34px;line-height:34px;white-space:nowrap;text-align:center;color:#F5C542;font-weight:600;will-change:transform;backface-visibility:hidden';
+        el.appendChild(d);
+        return d;
+      });
+      const maxW = Math.ceil(Math.max.apply(null, col.words.map(wd => mc.measureText(wd).width))) + 4;
+      el.style.width = maxW + 'px';
+      reels.push({ el: el, rows: rows, len: col.words.length, off: ci * 0.45 });
+    });
+    if (!reels.length) return;
+    const eb = k => { const c1 = 1.2, c3 = c1 + 1, u = k - 1; return 1 + c3 * u * u * u + c1 * u * u; };
+    const cycle = 3.8, hold = 2.4, spin = cycle - hold;
+    const t0 = performance.now();
+    const fitStrip = () => {
+      const st = this.strip.current; if (!st) return;
+      const sw = st.scrollWidth;
+      const avail = window.innerWidth - 32;
+      st.style.transform = sw > avail ? 'scale(' + (avail / sw).toFixed(3) + ')' : 'none';
+    };
+    let fitAt = 0;
+    const tick = now => {
+      const t = (now - t0) / 1000;
+      if (now > fitAt) { fitStrip(); fitAt = now + 400; }
+      for (const r of reels) {
+        const lt = Math.max(0, t - r.off);
+        const n = Math.floor(lt / cycle);
+        const ph = lt % cycle;
+        const S0 = n * (r.len + 1);
+        const s = ph < hold ? S0 : S0 + (r.len + 1) * eb((ph - hold) / spin);
+        for (let i = 0; i < r.len; i++) {
+          let o = ((i - s) % r.len + r.len) % r.len;
+          if (o > r.len / 2) o -= r.len;
+          const y = o * rowH;
+          const row = r.rows[i];
+          if (Math.abs(y) > 52) { row.style.opacity = '0'; continue; }
+          row.style.opacity = String(Math.max(0, 1 - Math.abs(y) / 46));
+          row.style.transform = 'translateY(' + y.toFixed(1) + 'px) rotateX(' + (-y * 1.8).toFixed(1) + 'deg)';
+        }
+      }
+      this.rafs[2] = requestAnimationFrame(tick);
+    };
+    this.rafs[2] = requestAnimationFrame(tick);
+  }
+
+  initCounts() {
+    const targets = [
+      { ref: this.n1, end: 250 },
+      { ref: this.n2, end: 1 },
+      { ref: this.n3, end: 140 },
+      { ref: this.n4, end: 20 }
+    ];
+    let started = false, t0 = 0;
+    const dur = 1500;
+    const tick = now => {
+      const sec = this.scaleRef.current;
+      if (!started) {
+        if (sec && sec.getBoundingClientRect().top < window.innerHeight * 0.8) { started = true; t0 = now; }
+        this.rafs[3] = requestAnimationFrame(tick);
+        return;
+      }
+      const k = Math.min(1, (now - t0) / dur);
+      const e = 1 - Math.pow(1 - k, 3);
+      for (const tg of targets) {
+        if (tg.ref.current) tg.ref.current.textContent = String(Math.round(tg.end * e));
+      }
+      if (k < 1) this.rafs[3] = requestAnimationFrame(tick);
+    };
+    this.rafs[3] = requestAnimationFrame(tick);
+  }
+
+  initEcoCoin() {
+    const cv = this.ecoCv.current, list = this.roleList.current;
+    if (!cv || !list) return;
+    const ctx = cv.getContext('2d');
+    const cx = 26;
+    let y = null, roll = 0;
+    const tick = () => {
+      const kids = list.children;
+      if (!kids.length) { this.rafs[4] = requestAnimationFrame(tick); return; }
+      const cvTop = cv.getBoundingClientRect().top;
+      const centers = [];
+      for (let i = 0; i < kids.length; i++) {
+        const r = kids[i].getBoundingClientRect();
+        centers.push(r.top - cvTop + r.height / 2);
+      }
+      const i = Math.min(this.state.role, centers.length - 1);
+      const target = centers[i];
+      if (y === null) y = target;
+      const dy = (target - y) * 0.11;
+      y += dy;
+      roll += dy / 15 + 0.006;
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      ctx.strokeStyle = 'rgba(245,197,66,0.14)'; ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(cx, centers[0]);
+      ctx.lineTo(cx, centers[centers.length - 1]);
+      ctx.stroke();
+      centers.forEach((c, ci) => {
+        ctx.fillStyle = ci === i ? 'rgba(245,197,66,0.6)' : 'rgba(245,197,66,0.22)';
+        ctx.beginPath(); ctx.arc(cx, c, 3, 0, 6.283); ctx.fill();
+      });
+      this.drawCoin(ctx, cx, y, 15, roll);
+      this.rafs[4] = requestAnimationFrame(tick);
+    };
+    this.rafs[4] = requestAnimationFrame(tick);
+  }
+
+  renderVals() {
+    const role = this.state.role;
+    const rd = this.roleData;
+    const roles = rd.map((r, i) => ({
+      name: r.name,
+      num: '0' + (i + 1),
+      onPick: () => this.setState({ role: i }),
+      btnStyle: {
+        display: 'flex', alignItems: 'center', gap: '14px', padding: '20px 22px',
+        border: i === role ? '1px solid rgba(245,197,66,0.55)' : '1px solid rgba(255,255,255,0.09)',
+        background: i === role ? 'rgba(245,197,66,0.07)' : 'transparent',
+        color: i === role ? '#F5C542' : '#F2F0EA',
+        borderRadius: '14px', cursor: 'pointer'
+      }
+    }));
+    const nav = this.state.nav ?? 0;
+    const navBase = {
+      padding: '11px 15px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '11px',
+      fontSize: '13.5px', color: '#C4C9D1', cursor: 'pointer', whiteSpace: 'nowrap', textDecoration: 'none',
+      transition: 'color 0.18s ease, border-color 0.18s ease, background 0.18s ease'
+    };
+    const navSty = (i, extra) => Object.assign({}, navBase, extra || {}, nav === i ? {
+      border: '1px solid rgba(245,197,66,0.5)', color: '#F5C542', background: 'rgba(245,197,66,0.07)'
+    } : {});
+    const navGo = (i, roleIdx) => () => this.setState(roleIdx == null ? { nav: i } : { nav: i, role: roleIdx });
+    return {
+      ns0: navSty(0), ns1: navSty(1), ns2: navSty(2),
+      ns3: navSty(3, { display: 'flex', alignItems: 'center', gap: '5px' }),
+      ns4: navSty(4), ns5: navSty(5), ns6: navSty(6),
+      nc0: navGo(0, null), nc1: navGo(1, null), nc2: navGo(2, 0),
+      nc3: navGo(3, 4), nc4: navGo(4, 2), nc5: navGo(5, 3), nc6: navGo(6, 1),
+      heroCv: this.heroCv, triCv: this.triCv,
+      ecoCv: this.ecoCv, roleList: this.roleList,
+      slot1: this.slot1, slot2: this.slot2, slot3: this.slot3, strip: this.strip,
+      n1: this.n1, n2: this.n2, n3: this.n3, n4: this.n4,
+      scaleRef: this.scaleRef,
+      roles: roles,
+      roleName: rd[role].name,
+      roleDesc: rd[role].desc,
+      roleTag: rd[role].tag,
+      roleNum: '0' + (role + 1),
+      hov0: () => { this.hiEdge = 0; },
+      hov1: () => { this.hiEdge = 1; },
+      hov2: () => { this.hiEdge = 2; },
+      hovOff: () => { this.hiEdge = -1; },
+      pick0: () => this.setState({ role: 0 }),
+      pick1: () => this.setState({ role: 1 }),
+      pick2: () => this.setState({ role: 2 }),
+      pick3: () => this.setState({ role: 3 }),
+      pick4: () => this.setState({ role: 4 })
+    };
+  }
+}
+</script>
+</body>
+</html>

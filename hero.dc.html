@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800;900&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0C0F;font-family:'Golos Text',system-ui,sans-serif}
+@keyframes ct-slot{from{transform:translateY(18px)}to{transform:none}}
+.dv-turn{padding:40px 44px 48px;border-bottom:1px solid rgba(255,255,255,.07);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px 'JetBrains Mono',monospace;padding:3px 7px;background:#F5C542;color:#15171C;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 'Golos Text',sans-serif;color:#F2F0EA}
+.dv-note{font:400 12px/1.5 'Golos Text',sans-serif;color:rgba(255,255,255,.45);max-width:760px;margin:0 0 22px}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'JetBrains Mono',monospace;padding:3px 7px;background:rgba(255,255,255,.1);color:#F2F0EA;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11.5px/1.3 'Golos Text',sans-serif;color:rgba(255,255,255,.55)}
+.dv-card{max-width:100%;background:#0F1115;border:1px solid rgba(255,255,255,.09);border-radius:12px;box-shadow:0 2px 14px rgba(0,0,0,.5);overflow:hidden}
+.dv-opt:target .dv-oid{background:#F5C542;color:#15171C}
+.dv-next{margin:24px 0 0;font:12px/1.5 'Golos Text',sans-serif;color:rgba(255,255,255,.45)}
+.dv-next a{color:rgba(245,197,66,.9)}
+</style>
+</helmet>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Hero — три напрямки</span></div>
+<p class="dv-note">Система: графіт #0F1115, золото #F5C542, Unbounded для заголовків, Golos Text для тексту, JetBrains Mono для технічних акцентів. Нижній navbar як у застосунку. Всі три варіанти — живі анімації на canvas.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Монетний дощ — монети падають і складаються в слово «ЧАСОМ»</div>
+<div class="dv-card" style="width:1440px">
+<div style="position:relative;width:1440px;height:880px;overflow:hidden;background:radial-gradient(1100px 640px at 50% -8%, #1B2028 0%, #0F1115 62%)">
+  <div style="position:absolute;top:26px;left:36px;right:36px;display:flex;justify-content:space-between;align-items:center;z-index:3">
+    <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:16px;letter-spacing:.02em;color:#F2F0EA">CASHTIME <span style="color:#F5C542">PAY</span></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="display:flex;align-items:center;justify-content:center;width:35px;height:35px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;cursor:pointer" style-hover="border-color:rgba(245,197,66,0.5)"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" stroke="#C4C9D1" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      <div style="display:flex;align-items:center;gap:6px;padding:8px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;font-size:12.5px;color:#C4C9D1;font-family:'JetBrains Mono',monospace;cursor:pointer">UA<svg width="9" height="9" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+  </div>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:64px;z-index:2">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.3em;color:#F5C542">// ЕКОНОМІКА ЧАСУ</div>
+    <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:72px;line-height:1.04;color:#F2F0EA;margin-top:20px">ПЛАТИ СВОЇМ</div>
+    <canvas ref="{{ c1a }}" width="1240" height="300" style="width:1240px;height:300px;display:block;margin-top:-8px"></canvas>
+    <div style="font-size:20px;line-height:1.55;color:#9AA0AA;max-width:600px;text-align:center;margin-top:2px">— а не грошима. Новий економічний рівень, де час замінює гроші.</div>
+    <div style="display:flex;gap:14px;margin-top:34px">
+      <div style="display:flex;align-items:center;gap:10px;padding:16px 28px;border-radius:13px;background:linear-gradient(135deg,#FFDD7A,#E0AB22);color:#15171C;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 10px 30px rgba(245,197,66,0.25)" style-hover="transform:translateY(-2px)">Почати<svg width="17" height="17" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#15171C" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      <div style="padding:16px 26px;border-radius:13px;border:1px solid rgba(255,255,255,0.16);color:#F2F0EA;font-weight:500;font-size:16px;cursor:pointer" style-hover="border-color:rgba(245,197,66,0.6);color:#F5C542">Для брендів</div>
+    </div>
+  </div>
+  <nav style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;align-items:center;gap:7px;background:rgba(23,26,32,0.93);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,0.55);z-index:4">
+    <div style="padding:11px 15px;border:1px solid rgba(245,197,66,0.5);border-radius:11px;font-size:13.5px;color:#F5C542;background:rgba(245,197,66,0.07);cursor:pointer;white-space:nowrap">Головна</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Про нас</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Cashtimer</div>
+    <div style="display:flex;align-items:center;gap:5px;padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Бренди<svg width="9" height="9" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Мерчанти</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Благодійність</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Інфлюенсери</div>
+    <div style="padding:12px 20px;border-radius:11px;background:#F2F0EA;color:#15171C;font-weight:600;font-size:13.5px;cursor:pointer" style-hover="background:#FFFFFF">Увійти</div>
+  </nav>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Монетна мозаїка — патерн мигає і проявляє «CASHTIME» (вайб Sui)</div>
+<div class="dv-card" style="width:1440px">
+<div style="position:relative;width:1440px;height:880px;overflow:hidden;background:#0D0F13">
+  <canvas ref="{{ c1b }}" width="1440" height="880" style="position:absolute;inset:0;width:1440px;height:880px"></canvas>
+  <div style="position:absolute;top:26px;left:36px;right:36px;display:flex;justify-content:space-between;align-items:center;z-index:3">
+    <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:16px;letter-spacing:.02em;color:#F2F0EA">CASHTIME <span style="color:#F5C542">PAY</span></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="display:flex;align-items:center;justify-content:center;width:35px;height:35px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;cursor:pointer;background:rgba(13,15,19,0.7)" style-hover="border-color:rgba(245,197,66,0.5)"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" stroke="#C4C9D1" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      <div style="display:flex;align-items:center;gap:6px;padding:8px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;font-size:12.5px;color:#C4C9D1;font-family:'JetBrains Mono',monospace;cursor:pointer;background:rgba(13,15,19,0.7)">UA<svg width="9" height="9" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:64px;bottom:170px;max-width:760px;z-index:2">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.3em;color:#F5C542">// ЧАС = ЦІННІСТЬ</div>
+    <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:56px;line-height:1.1;color:#F2F0EA;margin-top:16px">Плати своїм часом —<br>а не грошима</div>
+    <div style="font-size:19px;line-height:1.55;color:#9AA0AA;max-width:540px;margin-top:18px">Новий економічний рівень, де час замінює гроші.</div>
+    <div style="display:flex;gap:14px;margin-top:28px">
+      <div style="display:flex;align-items:center;gap:10px;padding:15px 26px;border-radius:13px;background:linear-gradient(135deg,#FFDD7A,#E0AB22);color:#15171C;font-weight:700;font-size:15.5px;cursor:pointer;box-shadow:0 10px 30px rgba(245,197,66,0.22)" style-hover="transform:translateY(-2px)">Почати<svg width="16" height="16" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#15171C" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      <div style="padding:15px 24px;border-radius:13px;border:1px solid rgba(255,255,255,0.16);color:#F2F0EA;font-weight:500;font-size:15.5px;cursor:pointer;background:rgba(13,15,19,0.6)" style-hover="border-color:rgba(245,197,66,0.6);color:#F5C542">Дослідити екосистему</div>
+    </div>
+  </div>
+  <nav style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;align-items:center;gap:7px;background:rgba(23,26,32,0.93);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,0.55);z-index:4">
+    <div style="padding:11px 15px;border:1px solid rgba(245,197,66,0.5);border-radius:11px;font-size:13.5px;color:#F5C542;background:rgba(245,197,66,0.07);cursor:pointer;white-space:nowrap">Головна</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Про нас</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Cashtimer</div>
+    <div style="display:flex;align-items:center;gap:5px;padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Бренди<svg width="9" height="9" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Мерчанти</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Благодійність</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Інфлюенсери</div>
+    <div style="padding:12px 20px;border-radius:11px;background:#F2F0EA;color:#15171C;font-weight:600;font-size:13.5px;cursor:pointer" style-hover="background:#FFFFFF">Увійти</div>
+  </nav>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Годинник — циферблат з монет тікає навколо тези + живий тікер перетворень</div>
+<div class="dv-card" style="width:1440px">
+<div style="position:relative;width:1440px;height:880px;overflow:hidden;background:radial-gradient(900px 900px at 50% 48%, #191D25 0%, #0F1115 65%)">
+  <canvas ref="{{ c1c }}" width="1440" height="880" style="position:absolute;inset:0;width:1440px;height:880px"></canvas>
+  <div style="position:absolute;top:26px;left:36px;right:36px;display:flex;justify-content:space-between;align-items:center;z-index:3">
+    <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:16px;letter-spacing:.02em;color:#F2F0EA">CASHTIME <span style="color:#F5C542">PAY</span></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="display:flex;align-items:center;justify-content:center;width:35px;height:35px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;cursor:pointer" style-hover="border-color:rgba(245,197,66,0.5)"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" stroke="#C4C9D1" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      <div style="display:flex;align-items:center;gap:6px;padding:8px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;font-size:12.5px;color:#C4C9D1;font-family:'JetBrains Mono',monospace;cursor:pointer">UA<svg width="9" height="9" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+  </div>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:110px;z-index:2">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.3em;color:#F5C542">// ШВЕЙЦАРСЬКА ТОЧНІСТЬ</div>
+    <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:64px;line-height:1.12;color:#F2F0EA;text-align:center;max-width:900px;margin-top:20px">Плати своїм <span style="color:#F5C542">часом</span> — а не грошима</div>
+    <div style="display:flex;gap:14px;margin-top:36px">
+      <div style="display:flex;align-items:center;gap:10px;padding:16px 28px;border-radius:13px;background:linear-gradient(135deg,#FFDD7A,#E0AB22);color:#15171C;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 10px 30px rgba(245,197,66,0.25)" style-hover="transform:translateY(-2px)">Почати<svg width="17" height="17" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#15171C" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:104px;display:flex;justify-content:center;z-index:2">
+    <div style="display:flex;align-items:center;gap:12px;font-size:22px;color:#8A8F98;padding:14px 30px;border:1px solid rgba(255,255,255,0.07);border-radius:14px;background:rgba(15,17,21,0.75)">
+      <span>Ми перетворюємо час</span>
+      <span ref="{{ slot1 }}" style="display:inline-block;position:relative;height:34px;overflow:hidden;perspective:300px"></span>
+      <span>у</span>
+      <span ref="{{ slot2 }}" style="display:inline-block;position:relative;height:34px;overflow:hidden;perspective:300px"></span>
+      <span>для</span>
+      <span ref="{{ slot3 }}" style="display:inline-block;position:relative;height:34px;overflow:hidden;perspective:300px"></span>
+    </div>
+  </div>
+  <nav style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;align-items:center;gap:7px;background:rgba(23,26,32,0.93);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,0.55);z-index:4">
+    <div style="padding:11px 15px;border:1px solid rgba(245,197,66,0.5);border-radius:11px;font-size:13.5px;color:#F5C542;background:rgba(245,197,66,0.07);cursor:pointer;white-space:nowrap">Головна</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Про нас</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Cashtimer</div>
+    <div style="display:flex;align-items:center;gap:5px;padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Бренди<svg width="9" height="9" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Мерчанти</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Благодійність</div>
+    <div style="padding:11px 15px;border:1px solid rgba(255,255,255,0.1);border-radius:11px;font-size:13.5px;color:#C4C9D1;cursor:pointer;white-space:nowrap" style-hover="border-color:rgba(245,197,66,0.5);color:#F5C542">Інфлюенсери</div>
+    <div style="padding:12px 20px;border-radius:11px;background:#F2F0EA;color:#15171C;font-weight:600;font-size:13.5px;cursor:pointer" style-hover="background:#FFFFFF">Увійти</div>
+  </nav>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Далі: «збери лендинг на базі <a class="dv-oid" href="#1a">1a</a>» · «додай тікер з <a class="dv-oid" href="#1c">1c</a> у <a class="dv-oid" href="#1b">1b</a>» · «інші варіанти hero»</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { idx: 0 };
+    this.c1a = React.createRef();
+    this.c1b = React.createRef();
+    this.c1c = React.createRef();
+    this.slot1 = React.createRef();
+    this.slot2 = React.createRef();
+    this.slot3 = React.createRef();
+    this.rafs = [];
+    this.gold = ['#F5C542', '#E8B937', '#D9A21B', '#FFDD7A'];
+  }
+
+  componentDidMount() {
+    const start = () => { try { this.initA(); this.initB(); this.initC(); this.initSlots(); } catch (e) { console.error(e); } };
+    if (document.fonts && document.fonts.load) {
+      Promise.all([
+        document.fonts.load("900 236px 'Unbounded'"),
+        document.fonts.load("900 190px 'Unbounded'")
+      ]).then(start).catch(() => setTimeout(start, 900));
+    } else { setTimeout(start, 900); }
+  }
+
+  componentWillUnmount() {
+    this.rafs.forEach(id => cancelAnimationFrame(id));
+  }
+
+  sampleText(text, font, gap, w, h, cx, cy) {
+    const oc = document.createElement('canvas'); oc.width = w; oc.height = h;
+    const c = oc.getContext('2d');
+    c.font = font; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#fff';
+    c.fillText(text, cx, cy);
+    const d = c.getImageData(0, 0, w, h).data;
+    const pts = [];
+    for (let y = Math.floor(gap / 2); y < h; y += gap) {
+      for (let x = Math.floor(gap / 2); x < w; x += gap) {
+        if (d[(y * w + x) * 4 + 3] > 120) pts.push({ x: x, y: y });
+      }
+    }
+    return pts;
+  }
+
+  initA() {
+    const cv = this.c1a.current; if (!cv) return;
+    const ctx = cv.getContext('2d');
+    const pts = this.sampleText('ЧАСОМ', "900 232px 'Unbounded'", 7, cv.width, cv.height, cv.width / 2, cv.height / 2 + 6);
+    const gold = this.gold;
+    const parts = pts.map(p => ({
+      tx: p.x, ty: p.y,
+      x0: p.x + (Math.random() * 220 - 110), y0: -60 - Math.random() * 560,
+      d: Math.random() * 1.9, ph: Math.random() * 6.283,
+      r: 2.2 + Math.random() * 1.5, c: gold[(Math.random() * 4) | 0]
+    }));
+    const amb = [];
+    for (let i = 0; i < 26; i++) amb.push({ x: Math.random() * cv.width, y: Math.random() * cv.height, v: 26 + Math.random() * 50, r: 1.5 + Math.random() * 2, a: 0.05 + Math.random() * 0.09, ph: Math.random() * 6.28 });
+    const eb = k => { const c1 = 1.70158, c3 = c1 + 1, u = k - 1; return 1 + c3 * u * u * u + c1 * u * u; };
+    const t0 = performance.now();
+    const tick = now => {
+      const t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      ctx.fillStyle = '#F5C542';
+      for (const a of amb) {
+        const y = (a.y + t * a.v) % (cv.height + 40) - 20;
+        ctx.globalAlpha = a.a;
+        ctx.beginPath(); ctx.arc(a.x + Math.sin(t * 0.7 + a.ph) * 8, y, a.r, 0, 6.283); ctx.fill();
+      }
+      for (const p of parts) {
+        let k = (t - p.d) / 1.15; if (k < 0) continue; if (k > 1) k = 1;
+        const e = k < 1 ? eb(k) : 1;
+        const x = p.x0 + (p.tx - p.x0) * Math.min(1, k * 1.2);
+        const y = p.y0 + (p.ty - p.y0) * e;
+        const shimmer = k >= 1 ? 0.72 + 0.28 * Math.sin(t * 2.1 + p.ph) : 1;
+        ctx.globalAlpha = Math.min(1, k * 3) * shimmer;
+        ctx.fillStyle = p.c;
+        ctx.beginPath(); ctx.arc(x, y, p.r, 0, 6.283); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      this.rafs[0] = requestAnimationFrame(tick);
+    };
+    this.rafs[0] = requestAnimationFrame(tick);
+  }
+
+  initB() {
+    const cv = this.c1b.current; if (!cv) return;
+    const ctx = cv.getContext('2d');
+    const w = cv.width, h = cv.height, gap = 26;
+    const oc = document.createElement('canvas'); oc.width = w; oc.height = h;
+    const c = oc.getContext('2d');
+    c.font = "900 178px 'Unbounded'"; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#fff';
+    c.fillText('CASHTIME', w / 2, 300);
+    const data = c.getImageData(0, 0, w, h).data;
+    const cells = [];
+    for (let y = 13; y < h; y += gap) {
+      for (let x = 13; x < w; x += gap) {
+        cells.push({ x: x, y: y, m: data[(y * w + x) * 4 + 3] > 120, ph: Math.random() * 6.283, st: Math.random() });
+      }
+    }
+    const t0 = performance.now();
+    const tick = now => {
+      const t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, w, h);
+      const phase = t % 12;
+      let em;
+      if (phase < 1.6) em = phase / 1.6;
+      else if (phase < 8.5) em = 1;
+      else if (phase < 10.1) em = 1 - (phase - 8.5) / 1.6;
+      else em = 0;
+      for (const cell of cells) {
+        if (cell.m) {
+          const e = Math.max(0, Math.min(1, em * 1.5 - cell.st * 0.5));
+          const pulse = 0.6 + 0.4 * Math.sin(t * 2.4 + cell.x * 0.012 + cell.ph * 0.5);
+          const base = 0.05 + 0.05 * Math.sin(t * 1.2 + cell.ph);
+          ctx.fillStyle = '#F5C542';
+          ctx.globalAlpha = Math.max(0.03, base + (0.85 * pulse - base) * e);
+          ctx.beginPath(); ctx.arc(cell.x, cell.y, 4 + 2.4 * e * pulse, 0, 6.283); ctx.fill();
+        } else {
+          const spark = Math.sin(t * 2.6 + cell.ph * 17) + Math.sin(t * 1.3 + cell.ph * 7) > 1.95;
+          ctx.globalAlpha = spark ? 0.5 : 0.04 + 0.03 * Math.sin(t * 1.1 + cell.ph);
+          ctx.fillStyle = spark ? '#F5C542' : '#7A8494';
+          ctx.beginPath(); ctx.arc(cell.x, cell.y, spark ? 4.5 : 3, 0, 6.283); ctx.fill();
+        }
+      }
+      ctx.globalAlpha = 1;
+      this.rafs[1] = requestAnimationFrame(tick);
+    };
+    this.rafs[1] = requestAnimationFrame(tick);
+  }
+
+  initC() {
+    const cv = this.c1c.current; if (!cv) return;
+    const ctx = cv.getContext('2d');
+    const w = cv.width, h = cv.height, cx = w / 2, cy = 420, R = 330;
+    const orb = [];
+    for (let i = 0; i < 7; i++) orb.push({ a: Math.random() * 6.283, sp: (0.08 + Math.random() * 0.18) * (Math.random() < 0.5 ? -1 : 1), r: R + (Math.random() * 100 - 50), cr: 3 + Math.random() * 3.5 });
+    const ez = k => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    const t0 = performance.now();
+    const tick = now => {
+      const t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = 'rgba(245,197,66,0.07)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.283); ctx.stroke();
+      ctx.strokeStyle = 'rgba(245,197,66,0.04)';
+      ctx.beginPath(); ctx.arc(cx, cy, R + 60, 0, 6.283); ctx.stroke();
+      const s = Math.floor(t) % 60, f = t % 1, e = ez(Math.min(1, f * 1.8));
+      for (let i = 0; i < 60; i++) {
+        const a = i / 60 * 6.283 - Math.PI / 2;
+        const x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
+        const dist = (s - i + 60) % 60;
+        const trail = dist < 9 ? 1 - dist / 9 : 0;
+        const major = i % 5 === 0;
+        ctx.globalAlpha = 0.1 + (major ? 0.1 : 0) + trail * 0.8;
+        ctx.fillStyle = trail > 0 ? '#F5C542' : '#8A93A3';
+        ctx.beginPath(); ctx.arc(x, y, (major ? 5 : 3.2) + trail * 2, 0, 6.283); ctx.fill();
+      }
+      const ha = (s + e) / 60 * 6.283 - Math.PI / 2;
+      const hx = cx + Math.cos(ha) * R, hy = cy + Math.sin(ha) * R;
+      ctx.globalAlpha = 1;
+      this.drawCoin(ctx, hx, hy, 16, ha * R / 16);
+      for (const o of orb) {
+        const a = o.a + t * o.sp;
+        ctx.globalAlpha = 0.15; ctx.fillStyle = '#F5C542';
+        ctx.beginPath(); ctx.arc(cx + Math.cos(a) * o.r, cy + Math.sin(a) * o.r, o.cr, 0, 6.283); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      this.rafs[2] = requestAnimationFrame(tick);
+    };
+    this.rafs[2] = requestAnimationFrame(tick);
+  }
+
+  drawCoin(ctx, x, y, r, roll) {
+    const glow = ctx.createRadialGradient(x, y, r * 0.3, x, y, r * 2.6);
+    glow.addColorStop(0, 'rgba(245,197,66,0.30)');
+    glow.addColorStop(1, 'rgba(245,197,66,0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath(); ctx.arc(x, y, r * 2.6, 0, 6.283); ctx.fill();
+    ctx.save();
+    ctx.translate(x, y);
+    const face = ctx.createRadialGradient(-r * 0.45, -r * 0.5, r * 0.15, 0, 0, r * 1.05);
+    face.addColorStop(0, '#FFF0B8');
+    face.addColorStop(0.45, '#F5C542');
+    face.addColorStop(1, '#B9860F');
+    ctx.fillStyle = face;
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, 6.283); ctx.fill();
+    ctx.lineWidth = 1.6; ctx.strokeStyle = 'rgba(122,86,10,0.9)';
+    ctx.beginPath(); ctx.arc(0, 0, r - 0.8, 0, 6.283); ctx.stroke();
+    ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(255,240,190,0.7)';
+    ctx.beginPath(); ctx.arc(0, 0, r - 2.6, 0, 6.283); ctx.stroke();
+    ctx.rotate(roll);
+    ctx.strokeStyle = 'rgba(122,86,10,0.55)'; ctx.lineWidth = 1.2;
+    for (let i = 0; i < 22; i++) {
+      const a = i / 22 * 6.283;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a) * (r - 4.2), Math.sin(a) * (r - 4.2));
+      ctx.lineTo(Math.cos(a) * (r - 1.6), Math.sin(a) * (r - 1.6));
+      ctx.stroke();
+    }
+    ctx.strokeStyle = 'rgba(122,86,10,0.4)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(0, 0, r * 0.62, 0, 6.283); ctx.stroke();
+    ctx.font = "900 " + Math.round(r * 1.0) + "px 'Unbounded'";
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(255,244,205,0.9)';
+    ctx.fillText('C', 0.8, -r * 0.04 + 1.1);
+    ctx.fillStyle = '#8F6A12';
+    ctx.fillText('C', 0, -r * 0.04);
+    ctx.restore();
+    const spec = ctx.createRadialGradient(x - r * 0.4, y - r * 0.45, 0, x - r * 0.4, y - r * 0.45, r * 0.7);
+    spec.addColorStop(0, 'rgba(255,255,255,0.4)');
+    spec.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = spec;
+    ctx.beginPath(); ctx.arc(x - r * 0.4, y - r * 0.45, r * 0.7, 0, 6.283); ctx.fill();
+  }
+
+  initSlots() {
+    const cols = [
+      { ref: this.slot1, words: ['підписників', 'бекерів', 'фанів', 'учасників лояльності', 'спонсорів'] },
+      { ref: this.slot2, words: ['донати', 'респондентів', 'внески', 'знижки', 'лідів'] },
+      { ref: this.slot3, words: ['креаторів', 'благодійних фондів', 'інфлюенсерів', 'продавців', 'брендів'] }
+    ];
+    const mc = document.createElement('canvas').getContext('2d');
+    mc.font = "600 22px 'Golos Text'";
+    const rowH = 34;
+    const reels = [];
+    cols.forEach((col, ci) => {
+      const el = col.ref.current; if (!el) return;
+      if (el.childNodes.length) el.innerHTML = '';
+      const rows = col.words.map(wd => {
+        const d = document.createElement('div');
+        d.textContent = wd;
+        d.style.cssText = 'position:absolute;left:0;right:0;top:0;height:34px;line-height:34px;white-space:nowrap;text-align:center;color:#F5C542;font-weight:600;will-change:transform;backface-visibility:hidden';
+        el.appendChild(d);
+        return d;
+      });
+      const maxW = Math.ceil(Math.max.apply(null, col.words.map(wd => mc.measureText(wd).width))) + 4;
+      el.style.width = maxW + 'px';
+      reels.push({ el: el, rows: rows, len: col.words.length, off: ci * 0.45 });
+    });
+    if (!reels.length) return;
+    const eb = k => { const c1 = 1.2, c3 = c1 + 1, u = k - 1; return 1 + c3 * u * u * u + c1 * u * u; };
+    const cycle = 3.8, hold = 2.4, spin = cycle - hold;
+    const t0 = performance.now();
+    const tick = now => {
+      const t = (now - t0) / 1000;
+      for (const r of reels) {
+        const lt = Math.max(0, t - r.off);
+        const n = Math.floor(lt / cycle);
+        const ph = lt % cycle;
+        const S0 = n * (r.len + 1);
+        const s = ph < hold ? S0 : S0 + (r.len + 1) * eb((ph - hold) / spin);
+        for (let i = 0; i < r.len; i++) {
+          let o = ((i - s) % r.len + r.len) % r.len;
+          if (o > r.len / 2) o -= r.len;
+          const y = o * rowH;
+          const row = r.rows[i];
+          if (Math.abs(y) > 52) { row.style.opacity = '0'; continue; }
+          row.style.opacity = String(Math.max(0, 1 - Math.abs(y) / 46));
+          row.style.transform = 'translateY(' + y.toFixed(1) + 'px) rotateX(' + (-y * 1.8).toFixed(1) + 'deg)';
+        }
+      }
+      this.rafs[3] = requestAnimationFrame(tick);
+    };
+    this.rafs[3] = requestAnimationFrame(tick);
+  }
+
+  renderVals() {
+    return {
+      c1a: this.c1a, c1b: this.c1b, c1c: this.c1c,
+      slot1: this.slot1, slot2: this.slot2, slot3: this.slot3
+    };
+  }
+}
+</script>
+</body>
+</html>
